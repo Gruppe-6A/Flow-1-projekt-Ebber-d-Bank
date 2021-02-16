@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +18,6 @@ public class Account {
     }
 
     public int getBalance(){
-        // TODO: skal debugges
         int sum = 0;
         for (Transaction transaction : transactions) {
             sum += transaction.getAmount();
@@ -25,21 +25,26 @@ public class Account {
         return sum;
     }
 
-    public int withDrawAmount(int amount) throws BankException{
-        // TODO: skal kodes og returnere ny saldo. Smid fejl hvis amount > saldo
+    public int withDrawAmount(int amount) throws BankException, IOException {
+
         if (getBalance() < amount){
             throw new BankException("Du forsøger at hæve et beløb som er større end din saldo");
         } else if (amount <= 0) {
             throw new BankException("Du kan ikke hæve et beløb som er 0 eller negativt");
         }
         transactions.add(new Transaction(-amount, new Date() ));
+        System.out.println(getBalance());
         return getBalance() ;
     }
 
-    public int depositAmount(int amount){
-        // TODO: skal debugges og returnere ny saldo. Smid fejl hvis amount < 0.
+    public int depositAmount(int amount) throws BankException, IOException {
+        if (amount <= 0){
+            throw new BankException("Du kan ikke indsætte et beløb som er 0 eller negativt");
+        }
         transactions.add(new Transaction(amount, new Date()));
+        System.out.println(getBalance());
         return getBalance();
+
     }
 
     public List<Transaction> getTransactions() {
