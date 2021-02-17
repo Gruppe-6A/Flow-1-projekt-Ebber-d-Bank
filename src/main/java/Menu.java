@@ -11,8 +11,8 @@ public class Menu {
     Customer customer = new Customer("Lars");
     Account account = new Account(customer);
     public int amount;
-    public int onStartup(){
-        int ID;
+    int ID;
+    public int onStartup() throws SQLException {
         int first = 0;
         if(first == 0) {
             System.out.println("Enter ID");
@@ -22,13 +22,13 @@ public class Menu {
         if(ID == managementID){
             bankMenu();
         } else {
-            System.out.println(ID);
+            System.out.println("Welcome");
             mainMenu();
         }
 
         return ID;
     }
-    private void mainMenu(){
+    private void mainMenu() throws SQLException {
         System.out.println("1) Withdraw \n2) Deposit \n3) View bankstatement");
         choice();
     }
@@ -50,14 +50,14 @@ public class Menu {
         }
     }
 
-    private void choice() {
+    private void choice() throws SQLException {
 
         switch(scanner.nextInt()){
             case 1:
                 System.out.println("How much do you wish to withdraw?");
                 amount = scanner.nextInt();
                 try {
-                    account.withDrawAmount(amount);
+                    account.withDrawAmount(amount, ID);
                 } catch (BankException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -70,7 +70,7 @@ public class Menu {
                 System.out.println("How much do you wish to deposit?");
                 amount = scanner.nextInt();
                 try {
-                    account.depositAmount(amount);
+                    account.depositAmount(amount, ID);
                 } catch (BankException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
