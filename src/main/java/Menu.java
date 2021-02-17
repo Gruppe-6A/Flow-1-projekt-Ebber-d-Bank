@@ -3,9 +3,9 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
-    public Menu(){
-
+    public Menu() {
     }
+
     public int managementID = 10;
     Scanner scanner = new Scanner(System.in);
     Customer customer = new Customer("Lars");
@@ -13,13 +13,19 @@ public class Menu {
     public int amount;
     public int onStartup(){
         int ID;
-        System.out.println("Enter ID");
+        int first = 0;
+        if(first == 0) {
+            System.out.println("Enter ID");
+            first++;
+        }
         ID = scanner.nextInt();
-        if(scanner.nextInt() == managementID){
+        if(ID == managementID){
             bankMenu();
         } else {
+            System.out.println(ID);
             mainMenu();
         }
+
         return ID;
     }
     private void mainMenu(){
