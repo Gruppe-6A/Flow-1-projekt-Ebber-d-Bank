@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,8 @@ public class Account {
         return customer;
     }
 
+    AccountManagement accountManagement = new AccountManagement();
+
     public int getBalance(){
         int sum = 0;
         for (Transaction transaction : transactions) {
@@ -25,7 +28,7 @@ public class Account {
         return sum;
     }
 
-    public int withDrawAmount(int amount) throws BankException, IOException {
+    public int withDrawAmount(int amount) throws BankException, IOException, SQLException {
 
         if (getBalance() < amount){
             throw new BankException("Du forsøger at hæve et beløb som er større end din saldo");
@@ -33,6 +36,7 @@ public class Account {
             throw new BankException("Du kan ikke hæve et beløb som er 0 eller negativt");
         }
         transactions.add(new Transaction(-amount, new Date() ));
+        accountManagement.updateBalanceForWithdrawal(amount,"99");
         System.out.println(getBalance());
         return getBalance() ;
     }
