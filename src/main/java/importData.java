@@ -17,4 +17,22 @@ public class importData {
         }
         return saldo;
     }
+    public void importTransactions(int id){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String sql = "SELECT * from Transactions where idCustomer = " + id + ";";
+        try {
+            Connection connection = JDBCConnector.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                int thisId = resultSet.getInt("idCustomer");
+                String transaction = resultSet.getString("transaction");
+
+                System.out.println("Id: " + thisId + " " + transaction);
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+    }
 }

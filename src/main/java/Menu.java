@@ -12,6 +12,7 @@ public class Menu {
     Account account = new Account(customer);
     public int amount;
     int ID;
+    importData importData = new importData();
     public int onStartup() throws SQLException {
         int first = 0;
         if(first == 0) {
@@ -78,7 +79,7 @@ public class Menu {
                 }
                 break;
             case 3:
-                System.out.println("Det har vi ikke lavet");
+                importData.importTransactions(ID);
                 break;
             case 4:
                 System.out.println("Det har vi ikke lavet2");
