@@ -5,7 +5,7 @@ import java.sql.SQLException;
 public class JDBCConnector {
     public static Connection getConnection() throws SQLException {
         String user = "root";
-        String password = "mustafa-99";
+        String password = "myPassword";
         String url = "jdbc:mysql://localhost:3306/BankDemo";
 
         Connection connection = null;
